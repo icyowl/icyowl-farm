@@ -1,0 +1,13 @@
+[project]
+name = 'farm'
+readme = 'README.md'
+license = 'MIT'
+version = '0.1'
+description = 'The farm management app.'
+dependencies = [
+  'flask', 'Flask-WTF', 'Flask-PyMongo', 'pydantic', 'Pillow'
+]
+
+[build-system]
+requires = ['flit_core >=3.12,<4']
+build-backend = 'flit_core.buildapi'

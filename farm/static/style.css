@@ -1,0 +1,55 @@
+/* color custom */
+
+:root {
+  --light: #dcdef2;
+  --dark: #100805;
+  --primary: #0500ff;
+  --secondary: #435075;
+  --info: #6a6a69;
+  --success: #009758;
+  --warning: #ddc800;
+  --danger: #ea1d00;
+}
+
+.bg-success-subtle {
+  background: var(--light) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-danger {
+  color: var(--danger) !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn {
+  padding: 5px 10px;
+}
+
+form label {
+  width: 4rem;
+}
+
+#radio-button {
+  padding-left: .5rem;
+}
+
+#radio-button > label {
+  padding-left: .25rem;
+  width: auto;
+}
+
+/* hero micro icon */
+.size-4 {
+  width: 16px;
+  height: 16px;
+  fill: #6c757d; /* gray-600 secondary */
+  fill: var(--secondary);
+  margin-bottom: 3px;
+}

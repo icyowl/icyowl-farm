@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="mt-2 p-3">
+    <div class="fs-5 fw-semibold">Add Growth to {{ variety }}</div>
+  </div>
+
+  <div class="p-3">
+    <form method="POST"> 
+      <div class="mb-3">
+        {{ form.date.label }} {{ form.date(value=date) }}
+      </div>
+      <div class="d-flex mb-4">
+        <div>{{ form.work.label }}</div>
+        {% for subfield in form.work %}
+          <div class="d-flex" id="radio-button">
+              <input {% if loop.index - 1 == work %}checked {% endif %}type="radio" id="{{ subfield.id }}" name="work" value="{{ subfield.id[-1] }}">
+              {{ subfield.label }}
+          </div>
+        {% endfor %}
+      </div> 
+      <input class="btn btn-outline-secondary" type="submit" value="submit">
+    </form>
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "macros/record.html" import render_record %}
+{% block content %}
+  <div class="mt-2 p-3">
+    <h3 class="mt-1 mb-3 fs-5">Growth Records - {{ variety }}</h3>
+    <div class="ms-2 mb-2 pb-1 d-flex justify-content-start algin-items-center">
+      <div>{{ growth }}</div>
+      <a class="ms-2" href="{{ url_for('records.create', id=id) }}">
+        {% include "includes/micro-document-plus.html" %}
+      </a>
+    </div>
+
+    <div class="border-top d-flex justify-content-start">
+      <table>
+        {% for i in range(0, records|length, 2) %}
+        <tr>
+            <td class="align-top">{{ render_record(record=records[i]) }}</td>
+            {% if i + 1 < records|length %}
+            <td class="align-top">{{ render_record(record=records[i+1]) }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+  </div>
+
+{% endblock %}

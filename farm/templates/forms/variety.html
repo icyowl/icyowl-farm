@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="mt-2 p-3">
+    {% if not variety %}
+      <div class="fs-5 fw-semibold">Add Variety to {{ species }}</div>
+    {% else %}
+      <div class="fs-5 fw-semibold">Update Variety - {{ variety }}</div>
+    {% endif %}
+  </div>
+
+  <div class="p-3">
+    <form method="POST"> 
+      <div class="mb-3">
+        {{ form.variety.label }} {{ form.variety(size=20, value=variety) }}
+      </div>
+      {# <div class="mb-3">
+        {{ form.note.label }} {{ form.note(size=40, value=note) }}
+      </div> #}
+      <div class="mb-5">
+        {{ form.sort_no.label }} {{ form.sort_no(value=sort_no) }}
+      </div>
+      <input class="btn btn-outline-secondary" type="submit" value="submit">
+    </form>
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="mt-2 p-3 mb-2 d-flex align-items-end fw-semibold">
+    <div class="mt-1 fs-5 me-3">
+      {% if not date %}Add Record{% else %}Update Record{% endif %}
+    </div>
+    <div>{{ variety }} - {{ growth }}</div>
+  </div>
+  
+  <div class="p-3">
+    <form enctype="multipart/form-data" method="POST"> 
+
+      <div class="mb-3">
+       {{ form.date.label }} {{ form.date(value=date, type="datetime-local") }}
+      </div>
+      <div class="mb-3">
+        {{ form.title.label }} {{ form.title(size=20, value=title) }}
+      </div>
+      <div class="mb-4">
+        {{ form.description.label }} {{ form.description(size=40, value=description) }}
+      </div>
+
+      <div class="mb-5 d-inline-flex">
+        <div>
+          <label for="formFile">Image</label>
+        </div>
+        <div style="margin-left: 4px;">
+          <input style="border:1px solid rgb(118, 118, 118);" class="form-control form-control-sm" id="formFileSm" type="file" name="uploadFile">
+        </div>
+      </div>
+
+      <div>
+        <input class="btn btn-outline-secondary" type="submit" value="submit">
+      </div>
+     
+
+    </form>
+  </div>
+
+{% endblock %}
