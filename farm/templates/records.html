@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 {% from "macros/record.html" import render_record %}
 {% block content %}
-  <div class="mt-2 p-3">
-    <h3 class="mt-1 mb-3 fs-5">Growth Records - {{ variety }}</h3>
-    <div class="ms-2 mb-2 pb-1 d-flex justify-content-start algin-items-center">
-      <div>{{ growth }}</div>
+  <div class="p-4">
+    <div class="fs-4 fw-semibold">Records - {{ variety }}</div>
+    <div class="mt-1 mb-2 pb-1 d-flex align-items-center">
+      <div style="margin-bottom: 0px !important;">
+        {% include "includes/micro-hashtag.html" %}
+      </div>
+      <div class="fs-6 ms-1 fw-semibold">{{ growth }}</div>
       <a class="ms-2" href="{{ url_for('records.create', id=id) }}">
         {% include "includes/micro-document-plus.html" %}
       </a>
     </div>
 
-    <div class="border-top d-flex justify-content-start">
+    <div class="border-top d-flex">
       <table>
         {% for i in range(0, records|length, 2) %}
         <tr>

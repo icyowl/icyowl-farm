@@ -1,25 +1,25 @@
 <div class="p-3 mb-3 text-center border-bottom border-dark">
   <h1 class="fs-4 fw-semibold">Icyowl's Farm</h1>
 </div>
-<ul class="list-unstyled ps-0 mb-2">
+<ul class="list-unstyled pt-2 ps-3 mb-2">
   <li>
-    <button class="btn border-0 btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+    <a href="{{ url_for('index') }}"> {# class="btn border-0" btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true"> #}
       Home
-    </button>
-    <div class="collapse show" id="home-collapse">
-      <ul class="list-unstyled ps-4 small" >
+    </a>
+    {# <div class="collapse show" id="home-collapse"> #}
+      <ul class="list-unstyled ps-2 small" >
         {# <li><a href="/" >Calendar</a></li> #}
         <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
         <li><a href="{{ url_for('species.create') }}">New ..</a></li>
       </ul>
-    </div>
+    {# </div> #}
   </li>
 </ul>
 
 <ul class="list-unstyled pt-2 ps-3 mb-2">
   <li>
     <div class="d-flex align-items-center">
-      <div class="me-1">Field -</div>
+      <div class="me-1">Field :</div>
       <a class="me-1 small {% if session['field'] == 0 %} text-primary {% endif %}" 
         href="{{ url_for('sidebar.crop') }}">Crop
       </a>
@@ -35,11 +35,11 @@
       {% for item in items %}
         <li>
           <div class="d-flex align-items-center">
-            <a href="{{ url_for('species.update', id=item['id']) }}" class="me-2">
+            <a href="{{ url_for('species.update', id=item['_id']) }}" class="me-2">
               {{ item['species'] }}
             </a>
-            <a href="{{ url_for('variety.create', id=item['id'], species=item['species']) }}">
-              {% include "includes/micro-document-plus.html" %}
+            <a href="{{ url_for('variety.create', id=item['_id'], species=item['species']) }}">
+              {% include "includes/micro-folder-plus.html" %}
             </a>
           </div>
           <div>
@@ -48,14 +48,14 @@
               {% for variety in item['children'] %}
                 <li>
                   <div class="d-flex align-items-center">
-                    <a href="{{ url_for('variety.update', id=variety['id']) }}" class="me-2">
+                    <a href="{{ url_for('variety.update', id=variety['_id']) }}" class="me-2">
                       {{ variety['variety'] }}
                     </a>
-                    <a href="{{ url_for('growth.create', id=variety['id'], variety=variety['variety']) }}" class="me-2">
-                      {% include "includes/micro-document-plus.html" %}
+                    <a href="{{ url_for('growth.create', id=variety['_id'], variety=variety['variety']) }}" class="me-2">
+                      {% include "includes/micro-folder-plus.html" %}
                     </a>
-                    <a href="#" style="text-decoration: underline;">Doc
-                      {# {% include "includes/micro-document-text.html" %} #}
+                    <a href="{{ url_for('document.read', parent_id=variety['_id'], variety=variety['variety']) }}" style="text-decoration: underline;">
+                      Doc
                     </a>
                   </div>
 
@@ -63,10 +63,10 @@
                   <ul class="list-unstyled ps-4">
                     <li>
                       <div class="d-flex align-items-center">
-                        <a href="{{ url_for('growth.update', id=growth['id']) }}" class="me-2">
+                        <a href="{{ url_for('growth.update', id=growth['_id']) }}" class="me-2">
                           {{ growth['title'] }}
                         </a>
-                        <a href="{{ url_for('growth.growth_records', id=growth['id']) }}">
+                        <a href="{{ url_for('growth.growth_records', id=growth['_id']) }}">
                           {% include "includes/micro-folder-open.html" %}
                         </a>
                       </div>

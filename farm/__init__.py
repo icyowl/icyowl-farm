@@ -13,7 +13,7 @@ def create_app(test_config=None):
 
     app.config.from_mapping(
         SECRET_KEY = 'dev',
-        MONGO_URI = config['DEV']['DB_URI']
+        MONGO_URI = config['PROD']['DB_URI']  # DEV or PROD
     )
  
     if test_config is None:
@@ -33,6 +33,9 @@ def create_app(test_config=None):
     from farm import sidebar
     app.register_blueprint(sidebar.bp)
 
+    from farm import fields
+    app.register_blueprint(fields.bp)
+
     from farm import species
     app.register_blueprint(species.bp)
 
@@ -44,6 +47,9 @@ def create_app(test_config=None):
 
     from farm import records
     app.register_blueprint(records.bp)
+
+    from farm import document
+    app.register_blueprint(document.bp)
 
     @app.route('/')
     @login_required

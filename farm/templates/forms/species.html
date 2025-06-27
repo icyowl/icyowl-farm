@@ -1,41 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="p-4">
+  <h3 class="fs-4">{% if not id %}New Species{% else %}Update Species{% endif %}</h3>
+  <form method="POST">
+    <div class="mt-4 mb-4 d-flex">
+      <div>{{ form.field.label }}</div>
+      {% for subfield in form.field %}
+        <div class="d-flex" id="radio-button">
+            <input {% if loop.index - 1 == field %}checked {% endif %}type="radio" id="{{ subfield.id }}" name="field" value="{{ subfield.id[-1] }}">
+            {{ subfield.label }}
+        </div>
+      {% endfor %}
+    </div> 
+    <div class="mb-3">
+      {{ form.family.label }} {{ form.family(size=20, value=family) }}
+    </div>
+    <div class="mb-3">
+      {{ form.species.label }} {{ form.species(size=20, value=species) }}
+    </div>
 
-  <div class="mt-2 p-3 fs-5 fw-semibold">{% if not id %}New Species{% else %}Update Species{% endif %}</div>
-  <div class="p-3">
-    <form method="POST">
-      <div class="d-flex mb-4">
-        <div>{{ form.field.label }}</div>
-        {% for subfield in form.field %}
-          <div class="d-flex" id="radio-button">
-              <input {% if loop.index - 1 == field %}checked {% endif %}type="radio" id="{{ subfield.id }}" name="field" value="{{ subfield.id[-1] }}">
-              {{ subfield.label }}
-          </div>
-        {% endfor %}
-      </div> 
-      <div class="mb-3">
-        {{ form.family.label }} {{ form.family(size=20, value=family) }}
-      </div>
-      <div class="mb-3">
-        {{ form.species.label }} {{ form.species(size=20, value=species) }}
-      </div>
-
-      <div class="mb-4">
-        {{ form.sort_no.label }} {{ form.sort_no(size=10, value=sort_no) }}
-      </div>
-      <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
-    </form>
-  </div>
+    <div class="mb-4">
+      {{ form.sort_no.label }} {{ form.sort_no(size=10, value=sort_no) }}
+    </div>
+    <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
+  </form>
 
   {% if id %}
-  <div class="p-3">
-    <div class="mt-2 mb-4 fs-5 fw-semibold">Delete Species</div>
-    {# <div class="d-flex mb-4">
-       {{ form.species.label }} <div class="ms-4">{{ species }}</div>
-    </div> #}
+  <h3 class="mt-5 mb-4 fs-4">Delete Species</h3>
+  <div class="d-flex">
     <a class="btn btn-outline-secondary text-danger" href="{{ url_for('species.delete', id=id) }}">Delete</a>
+    <div class="text-danger">
+      {% with messages = get_flashed_messages() %}
+      <ul class="list-group list-group-flush">
+        {% for message in messages %}
+          <li class="list-group-item text-danger bg-light">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endwith %}
+    </div>
   </div>
   {% endif %}
+
+
+</div>
 
 {% endblock %}
 

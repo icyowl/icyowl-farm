@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-
-  <div class="mt-2 p-3">
-    <div class="fs-5 fw-semibold">Add Growth to {{ variety }}</div>
+<div class="p-4">
+  <div class="fs-4 fw-semibold">
+    {% if id %}Update Growth{% else %}Add Growth{% endif %} - {{ variety }}
   </div>
 
-  <div class="p-3">
+  <div class="mt-4">
     <form method="POST"> 
       <div class="mb-3">
         {{ form.date.label }} {{ form.date(value=date) }}
@@ -19,9 +19,15 @@
           </div>
         {% endfor %}
       </div> 
-      <input class="btn btn-outline-secondary" type="submit" value="submit">
+      <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
     </form>
   </div>
+
+  {% if id %}
+  <div class="mt-4 mb-3 fs-5 fw-semibold">Delete Growth</div>
+  <a class="btn btn-outline-secondary text-danger" href="{{ url_for('growth.delete', id=id) }}">Delete</a>
+  {% endif %}
+</div>
 
 
 {% endblock %}

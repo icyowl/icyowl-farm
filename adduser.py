@@ -6,14 +6,15 @@ from werkzeug.security import generate_password_hash
 
 config = configparser.ConfigParser()
 config.read(os.path.abspath('instance/config.ini'))
-uri = config['DEV']['DB_URI']
+uri = config['PROD']['DB_URI']  # DEV or PROD
 
 client = MongoClient(uri)
-db = client['test_db']
+# db = client['test_db']
+db = client['farm']
 
 if 0:
-    username = 'test'
-    password = 'test'
+    username = 'Alice'
+    password = 'mockturtle'
     pw_hash = generate_password_hash(password)
 
     usr = {'username': username, 'password': pw_hash}

@@ -1,11 +1,10 @@
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
-from farm.models import Species, Variety, Growth, Records
+from farm.models import Species, Variety, Growth, Records, Document
 
 mongo = PyMongo()
 
-def init_db(app):
-    # app.config["MONGO_URI"] は app.py 側で設定
+def init_db(app):  # app.config["MONGO_URI"] は app.py 側で設定
     mongo.init_app(app)
 
 
@@ -30,6 +29,9 @@ class Dao:
     def delete_species(self, id):
         mongo.db.species.delete_one({'_id': ObjectId(id)})
 
+    def count_variety(self, id):
+        return mongo.db.variety.count_documents({'parent': {'$eq': id}})
+
     # Variety
     def create_variety(self, data):
         d = Variety(**data).to_mongo()  # validation
@@ -44,6 +46,24 @@ class Dao:
         _ = d.pop('id')
         mongo.db.variety.update_one({'_id': ObjectId(id)}, {'$set': d})
 
+    def delete_variety(self, id):
+        mongo.db.variety.delete_one({'_id': ObjectId(id)})
+
+    def get_field_index(self, id: str) -> int:
+        d = self.read_variety(id)
+        parent = d['parent']
+        s = mongo.db.species.find_one({'_id': ObjectId(parent)})
+        return s['field']
+
+    def get_field_index_by_species_id(self, id: str):
+        s = self.read_species(id)
+        return s['field']
+
+
+    def count_growth(self, id):
+        return mongo.db.growth.count_documents({'parent': {'$eq': id}})
+
+
     # Growth
     def create_growth(self, data):
         d = Growth(**data).to_mongo()  # validation
@@ -53,10 +73,14 @@ class Dao:
         return mongo.db.growth.find_one({'_id': ObjectId(id)})
 
     def update_growth(self, id, data):
-        doc = growth.from_mongo(data) # validation
+        doc = Growth.from_mongo(data) # validation
         d = doc.model_dump()
         _ = d.pop('id')
         mongo.db.growth.update_one({'_id': ObjectId(id)}, {'$set': d})
+
+    def delete_growth(self, id):
+        mongo.db.records.delete_many({'parent': id})
+        mongo.db.growth.delete_one({'_id': ObjectId(id)})
 
     # 
     def get_variety(self, id: str):
@@ -79,11 +103,22 @@ class Dao:
         mongo.db.records.insert_one(dic)
 
     def read_record(self, id: str):
-        doc = mongo.db.records.find_one({'_id': ObjectId(id)})
-        return doc
+        return mongo.db.records.find_one({'_id': ObjectId(id)})
 
     def update_record(self, id, data):
         # doc = Records.from_mongo(data) # validation
-        # dic = doc.model_dump()
-        # _ = dic.pop('id')
         mongo.db.records.update_one({'_id': ObjectId(id)}, {'$set': data})
+
+    def  delete_record(self, id):
+        mongo.db.records.delete_one({'_id': ObjectId(id)})
+
+    # document
+    def create_document(self, data):
+        d = Document(**data).to_mongo()
+        mongo.db.document.insert_one(d)
+
+    def read_document(self, parent_id):
+        return mongo.db.document.find_one({'parent': parent_id})
+
+    def update_document(self, id, data):
+        mongo.db.document.update_one({'_id': ObjectId(id)}, {'$set': data})

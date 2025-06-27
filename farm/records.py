@@ -41,6 +41,7 @@ def encode_and_resize(file = None) -> str:
     return encoded
 
 @bp.route('/create/<id>/', methods=['GET', 'POST'])  # growth_id
+@login_required
 def create(id):
     form = RecordsForm()
     variety, growth = dao.get_variety_and_growth(id)
@@ -66,17 +67,17 @@ def create(id):
 
 
 @bp.route('/update/<id>/', methods=['GET', 'POST'])  # record_id
+@login_required
 def update(id):
     doc = dao.read_record(id)
-    growth_id = doc['parent']
-    variety, growth = dao.get_variety_and_growth(growth_id)
+    parent = doc['parent']
+    variety, growth = dao.get_variety_and_growth(parent)
     date = doc['date']
     title = doc['title']
     description = doc['description']
     form = RecordsForm()
     if request.method == 'POST':
         data = {
-            # 'parent': growth_id,
             'date': form.date.data,
             'title': form.title.data,
             'description': form.description.data
@@ -86,7 +87,7 @@ def update(id):
             encoded = encode_and_resize(file)
             data['image'] = encoded
         dao.update_record(id, data)
-        return redirect(url_for('growth.growth_records', id=growth_id))
+        return redirect(url_for('growth.growth_records', id=parent))
 
     return render_template('forms/records.html',
                                 form=form,
@@ -97,3 +98,12 @@ def update(id):
                                 title=title,
                                 description=description
                             )
+
+
+@bp.route('/delete/<id>')
+@login_required
+def delete(id):
+    d = dao.read_record(id)
+    parent = d['parent']
+    dao.delete_record(id)
+    return redirect(url_for('growth.growth_records', id=parent))

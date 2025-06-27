@@ -1,28 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 
-  <div class="mt-2 p-3">
-    {% if not variety %}
-      <div class="fs-5 fw-semibold">Add Variety to {{ species }}</div>
-    {% else %}
-      <div class="fs-5 fw-semibold">Update Variety - {{ variety }}</div>
-    {% endif %}
-  </div>
+<div class="p-4">
+  {% if not id %}
+  <h3 class="fs-4">Add Variety to {{ species }}</h3>
+  {% else %}
+  <h3 class="fs-4">Update Variety - {{ variety }}</h3>
+  {% endif %}
 
-  <div class="p-3">
+  <div class="mt-4 mb-5">
     <form method="POST"> 
       <div class="mb-3">
         {{ form.variety.label }} {{ form.variety(size=20, value=variety) }}
       </div>
-      {# <div class="mb-3">
-        {{ form.note.label }} {{ form.note(size=40, value=note) }}
-      </div> #}
-      <div class="mb-5">
+      <div class="mb-4">
         {{ form.sort_no.label }} {{ form.sort_no(value=sort_no) }}
       </div>
-      <input class="btn btn-outline-secondary" type="submit" value="submit">
+      <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
     </form>
   </div>
 
+  {% if id %}
+  <h3 class="my-4 fs-4">Delete Variety</h3>
+  <div class="d-flex align-items-center">
+    <a class="btn btn-outline-secondary text-danger" href="{{ url_for('variety.delete', id=id) }}">
+      Delete
+    </a>
+    <div class="text-danger">
+      {% with messages = get_flashed_messages() %}
+        <ul class="list-group list-group-flush">
+          {% for message in messages %}
+            <li class="list-group-item text-danger bg-light">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endwith %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
 
 {% endblock %}

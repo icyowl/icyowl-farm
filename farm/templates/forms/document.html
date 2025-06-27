@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-4">
+  <div class="fs-5 fw-semibold">Document - {{ variety }}</div>
+  <div class="mt-4">
+    <form method="POST"> 
+      <div class="mb-3">
+        {% set f = form.document.process_data(document) %}
+        {{ form.document(rows=20, cols=80) }}
+      </div>
+      <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
+    </form>
+  </div>
+
+</div>
+
+
+{% endblock %}

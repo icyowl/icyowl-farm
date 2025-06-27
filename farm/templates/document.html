@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-4">
+  <h3 class="fs-4">Document - {{ variety }}</h3>
+  <a href="{{ url_for('document.update', parent_id=parent_id) }}"> 
+    {% include "includes/micro-pencil-square.html" %}
+  </a>
+  <div class="w-75 border-top">
+    <div class="mt-4" id="markdown">
+      {{ md | safe }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

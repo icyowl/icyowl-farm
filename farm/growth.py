@@ -14,13 +14,13 @@ bp = Blueprint('growth', __name__, url_prefix='/growth')
 
 class GrowthForm(FlaskForm):
     date = DateField('Date')
-    work = RadioField('work', choices=[(0, '播種'), (1, '定植')])
+    work = RadioField('work', choices=[(0, '播種'), (1, '植付'), (2, '定植')])
 
 
 def set_title(dt: datetime, i: int):
     dt_s = dt.strftime('%Y/%m/%d')
-    work = '定植' if i else '播種'
-    return ' '.join((dt_s, work))
+    s = ['播種', '植付', '定植'][i]
+    return ' '.join((dt_s, s))
 
 
 @bp.route('/create/<id>/<variety>', methods=['GET', 'POST'])
@@ -29,16 +29,16 @@ def create(id, variety):
     form = GrowthForm()
     if request.method == 'POST':
         dt = form.date.data
-        dt_s = dt.strftime('%Y/%m/%d')
         i = int(form.work.data)
-        s = '定植' if i else '播種'
-        title = ' '.join((dt_s, s))
+        title = set_title(dt, i)
+        _id = str(ObjectId())
         data = {
+            '_id': _id,
             'parent': id,
             'title': title
             }
         dao.create_growth(data)
-        return redirect(url_for('index'))
+        return redirect(url_for('growth.growth_records', id=_id))
 
     return render_template('forms/growth.html', form=form, variety=variety)
 
@@ -46,10 +46,12 @@ def create(id, variety):
 @login_required
 def update(id):
     found = dao.read_growth(id)
+    parent = found['parent']
+    variety = dao.get_variety(parent)
     title = found['title']
     dt_s, s = title.split()
     date = datetime.strptime(dt_s, '%Y/%m/%d').date()
-    work = 1 if s == '定植' else 0
+    i = ['播種', '植付', '定植'].index(s)
     form = GrowthForm()
     if request.method == 'POST':
         dt = form.date.data
@@ -58,10 +60,12 @@ def update(id):
         found['title'] = title
         dao.update_growth(id, found)
         return redirect(url_for('index'))
-    return render_template('forms/growth.html', 
+    return render_template('forms/growth.html',
+                                id=id,
+                                variety=variety,
                                 form=form,
                                 date=date, 
-                                work=work
+                                work=i
                             )
 
 
@@ -73,11 +77,16 @@ def growth_records(id):
     parent = found['parent']
     variety = dao.get_variety(parent)
     records = dao.get_records(id)
-    for x in records:
-        print(x['title'])
-    return render_template('growth-records.html',
+    return render_template('records.html',
                                 id=id,
                                 variety=variety,
                                 growth=growth,
                                 records=records
                             )
+
+
+@bp.route('/delete/<id>')
+@login_required
+def delete(id):
+    dao.delete_growth(id)
+    return redirect(url_for('index'))

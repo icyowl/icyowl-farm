@@ -59,3 +59,11 @@ class Records(BaseModel, MongoMethods):
     title: str
     description: str
     image: str
+
+
+class Document(BaseModel, MongoMethods):
+    id: Optional[PyObjectId] = Field(alias='_id', default=None)
+    parent: Optional[PyObjectId]
+    species: str
+    variety: str
+    document: str
