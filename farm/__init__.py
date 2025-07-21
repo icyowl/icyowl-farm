@@ -13,7 +13,7 @@ def create_app(test_config=None):
 
     app.config.from_mapping(
         SECRET_KEY = 'dev',
-        MONGO_URI = config['PROD']['DB_URI']  # DEV or PROD
+        MONGO_URI = config['DEV']['DB_URI']  # DEV or PROD
     )
  
     if test_config is None:
