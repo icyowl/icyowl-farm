@@ -5,7 +5,11 @@ license = 'MIT'
 version = '0.1'
 description = 'The farm management app.'
 dependencies = [
-  'flask', 'Flask-WTF', 'Flask-PyMongo', 'pydantic', 'Pillow'
+  'flask',
+  'Flask-WTF',
+  'Flask-PyMongo',
+  'pydantic', 
+  'Pillow'
 ]
 
 [build-system]
