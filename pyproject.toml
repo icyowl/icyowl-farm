@@ -10,6 +10,7 @@ version = '0.1'
 description = 'The farm management app.'
 dependencies = [
   'flask',
+  'gunicorn',
   'Flask-WTF',
   'Flask-PyMongo',
   'pydantic', 
