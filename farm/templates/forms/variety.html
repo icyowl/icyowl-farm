@@ -1,14 +1,13 @@
 {% extends "base.html" %}
+{% from "macros/content_title.html" import render_title %}
+
 {% block content %}
 
-<div class="p-4">
-  {% if not id %}
-  <h3 class="fs-4">Add Variety to {{ species }}</h3>
-  {% else %}
-  <h3 class="fs-4">Update Variety - {{ variety }}</h3>
-  {% endif %}
+{% set title = "Update Variety" if id else "Add Variety to " + species %}
+{{ render_title(title) }}
 
-  <div class="mt-4 mb-5">
+<div class="pt-2 ps-3">
+  <div class="mb-5">
     <form method="POST"> 
       <div class="mb-3">
         {{ form.variety.label }} {{ form.variety(size=20, value=variety) }}
@@ -30,14 +29,13 @@
       {% with messages = get_flashed_messages() %}
         <ul class="list-group list-group-flush">
           {% for message in messages %}
-            <li class="list-group-item text-danger bg-light">{{ message }}</li>
+            <li class="list-group-item text-danger">{{ message }}</li>
           {% endfor %}
         </ul>
       {% endwith %}
     </div>
   </div>
   {% endif %}
-
 </div>
 
 {% endblock %}

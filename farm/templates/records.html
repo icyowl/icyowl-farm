@@ -1,25 +1,32 @@
 {% extends "base.html" %}
 {% from "macros/record.html" import render_record %}
-{% block content %}
-  <div class="p-4">
-    <div class="fs-4 fw-semibold">Records - {{ variety }}</div>
-    <div class="mt-1 mb-2 pb-1 d-flex align-items-center">
-      <div style="margin-bottom: 0px !important;">
-        {% include "includes/micro-hashtag.html" %}
-      </div>
-      <div class="fs-6 ms-1 fw-semibold">{{ growth }}</div>
-      <a class="ms-2" href="{{ url_for('records.create', id=id) }}">
-        {% include "includes/micro-document-plus.html" %}
-      </a>
-    </div>
 
-    <div class="border-top d-flex">
+{% block content %}
+  <div class="p-3 mb-3 d-flex justify-content-between align-items-center border-bottom border-ligth">
+    <h3 class="fs-4">Records - {{ variety }}</h3>
+    <div style="margin-bottom: 0.5rem">
+      Add Record
+    <a 
+      href="{{ url_for('records.create', id=id) }}" 
+      class="me-2" 
+      {# style="margin-bottom: 0.5rem" #}
+      >{% include "includes/micro-document-plus.html" %}</a>
+    </div>
+  </div>
+
+  <div class="ps-3">
+    <div class="d-flex">
       <table>
-        {% for i in range(0, records|length, 2) %}
+        {% for i in range(0, records|length, 3) %}
         <tr>
             <td class="align-top">{{ render_record(record=records[i]) }}</td>
             {% if i + 1 < records|length %}
             <td class="align-top">{{ render_record(record=records[i+1]) }}</td>
+            {% else %}
+            <td></td><td></td>
+            {% endif %}
+            {% if i + 2 < records|length %}
+            <td class="align-top">{{ render_record(record=records[i+2]) }}</td>
             {% else %}
             <td></td>
             {% endif %}

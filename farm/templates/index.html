@@ -1,14 +1,13 @@
 {% extends "base.html" %}
+{% from "macros/content_title.html" import render_title %}
 {% block content %}
-  <div class="p-4">
-    <h3 class="fs-3">Bucolica</h3>
-    <div class="mt-4">
-      <p>Tityre, tu patulae recubans sub tegmine fagi</p>
-      <p>Siluestrem tenui musam meditaris auena;</p>
-      <p>nos patriae finis et dulcia linquimus arua;</p>
-      <p>nos patriam fugimus; tu, Tityre, lentus in umbra,</p>
-      <p>formosam resonare doces Amaryllida siluas.</p>
-      <p class="fw-bold">Virgil</p>
-    </div>
+  {{ render_title("Bucolica") }}
+  <div class="pt-2 ps-3">
+    <p>Tityre, tu patulae recubans sub tegmine fagi</p>
+    <p>Siluestrem tenui musam meditaris auena;</p>
+    <p>nos patriae finis et dulcia linquimus arua;</p>
+    <p>nos patriam fugimus; tu, Tityre, lentus in umbra,</p>
+    <p>formosam resonare doces Amaryllida siluas.</p>
+    <p class="fw-bold">Virgil</p>
   </div>
 {% endblock %}

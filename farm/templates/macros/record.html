@@ -1,18 +1,18 @@
 {% macro render_record(record) %}
-  <div class="p-3 mt-3 me-2 border">
+  <div class="p-3 mb-2 me-2 border">
     <div class="d-inline-flex">
       <div class="pb-2"><span>Date: </span><span>{{ record.date.strftime('%Y-%m-%d %H:%M') }}</span></div>
-      <div class="pb-3 ps-3">
+      <div class="pb-2 ps-3">
         <a href="{{ url_for('records.update', id=record._id|string) }}" >
           {% include "includes/micro-pencil-square.html" %}
         </a>
       </div>
     </div>
     <div class="mb-2"><span>Title: </span><span>{{ record.title }}</span></div>
-    <div class="mb-3" style="width:21rem"><span>desc: </span><span>{{ record.description }}</span></div>
+    <div class="mb-3" style="width:225px"><span>note: </span><span>{{ record.description }}</span></div>
     <div>
     {% if record.image %}
-      <img src="data:image/png;base64,{{ record.image }}" alt="Image", width="350"/>
+      <img src="data:image/png;base64,{{ record.image }}" alt="Image", width="225"/>
     {% else %}
       <div  class="pt-5 text-secondary text-center border" style="width:350px;height:263px">No Image</div>
     {% endif %}

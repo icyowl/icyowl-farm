@@ -1,16 +1,13 @@
 {% extends "base.html" %}
+{% from "macros/content_title.html" import render_title %}
+
 {% block content %}
 
-  <div class="mt-2 p-3 mb-2 fs-5 d-flex align-items-end fw-semibold">
-    <div class="mt-1 me-3">
-      {% if date %}Update Record{% else %}Add Record{% endif %}
-    </div>
-    <div>{{ growth }} - {{ variety }}</div>
-  </div>
-  
-  <div class="p-3">
-    <form enctype="multipart/form-data" method="POST"> 
+{% set s = "Update Record" if id else "Add Record to " + variety + " " + growth %}
+{{ render_title(s) }}
 
+  <div class="pt-2 ps-3">
+    <form enctype="multipart/form-data" method="POST"> 
       <div class="mb-3">
        {{ form.date.label }} {{ form.date(value=date, type="datetime-local") }}
       </div>
@@ -20,7 +17,6 @@
       <div class="mb-4">
         {{ form.description.label }} {{ form.description(size=40, value=description) }}
       </div>
-
       <div class="mb-5 d-inline-flex">
         <div>
           <label for="formFile">Image</label>
@@ -29,19 +25,16 @@
           <input style="border:1px solid rgb(118, 118, 118);" class="form-control form-control-sm" id="formFileSm" type="file" name="uploadFile">
         </div>
       </div>
-
       <div>
         <input class="btn btn-outline-secondary" type="submit" value="submit">
       </div>
 
     </form>
-  </div>
 
   {% if date %}
-  <div class="p-3">
-    <div class="mt-2 mb-4 fs-5 fw-semibold">Delete Record</div>
-    <a class="btn btn-outline-secondary text-danger" href="{{ url_for('records.delete', id=id) }}">Delete</a>
-  </div>
+  <div class="mt-5 mb-4 fs-5 fw-semibold">Delete Record</div>
+  <a class="btn btn-outline-secondary text-danger" href="{{ url_for('records.delete', id=id) }}">Delete</a>
+</div>
   {% endif %}
 
 {% endblock %}

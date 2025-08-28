@@ -1,30 +1,30 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="p-4">
-  <div class="fs-4 fw-semibold">
-    {% if id %}Update Growth{% else %}Add Growth{% endif %} - {{ variety }}
-  </div>
+{% from "macros/content_title.html" import render_title %}
 
-  <div class="mt-4">
-    <form method="POST"> 
-      <div class="mb-3">
-        {{ form.date.label }} {{ form.date(value=date) }}
-      </div>
-      <div class="d-flex mb-4">
-        <div>{{ form.work.label }}</div>
-        {% for subfield in form.work %}
-          <div class="d-flex" id="radio-button">
-              <input {% if loop.index - 1 == work %}checked {% endif %}type="radio" id="{{ subfield.id }}" name="work" value="{{ subfield.id[-1] }}">
-              {{ subfield.label }}
-          </div>
-        {% endfor %}
-      </div> 
-      <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
-    </form>
-  </div>
+{% block content %}
+
+{% set title = "Update Growth" if id else "Add Growth to " + variety %}
+{{ render_title(title) }}
+
+<div class="pt-2 ps-3">
+  <form method="POST"> 
+    <div class="mb-3">
+      {{ form.date.label }} {{ form.date(value=date) }}
+    </div>
+    <div class="d-flex mb-4">
+      <div>{{ form.work.label }}</div>
+      {% for subfield in form.work %}
+        <div class="d-flex" id="radio-button">
+            <input {% if loop.index - 1 == work %}checked {% endif %}type="radio" id="{{ subfield.id }}" name="work" value="{{ subfield.id[-1] }}">
+            {{ subfield.label }}
+        </div>
+      {% endfor %}
+    </div> 
+    <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
+  </form>
 
   {% if id %}
-  <div class="mt-4 mb-3 fs-5 fw-semibold">Delete Growth</div>
+  <div class="mt-5 mb-4 fs-4 fw-semibold">Delete Growth</div>
   <a class="btn btn-outline-secondary text-danger" href="{{ url_for('growth.delete', id=id) }}">Delete</a>
   {% endif %}
 </div>
