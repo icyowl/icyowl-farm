@@ -1,33 +1,34 @@
 {% extends "base.html" %}
-{% from "macros/content_title.html" import render_title %}
+{% from "macros/subtitle.html" import render_subtitle %}
 
 {% block content %}
 
-{% set title = "Update Growth" if id else "Add Growth to " + variety %}
-{{ render_title(title) }}
+<div class="w-75">
+  {% set s = "Update Growth" if id else "Add Growth to " + variety %}
+  {{ render_subtitle(s) }}
 
-<div class="pt-2 ps-3">
-  <form method="POST"> 
-    <div class="mb-3">
-      {{ form.date.label }} {{ form.date(value=date) }}
-    </div>
-    <div class="d-flex mb-4">
-      <div>{{ form.work.label }}</div>
-      {% for subfield in form.work %}
-        <div class="d-flex" id="radio-button">
-            <input {% if loop.index - 1 == work %}checked {% endif %}type="radio" id="{{ subfield.id }}" name="work" value="{{ subfield.id[-1] }}">
-            {{ subfield.label }}
-        </div>
-      {% endfor %}
-    </div> 
-    <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
-  </form>
+  <div class="pt-2 ps-3">
+    <form method="POST"> 
+      <div class="mb-3">
+        {{ form.date.label }} {{ form.date(value=date) }}
+      </div>
+      <div class="d-flex mb-4">
+        <div>{{ form.work.label }}</div>
+        {% for subfield in form.work %}
+          <div class="d-flex" id="radio-button">
+              <input {% if loop.index - 1 == work %}checked {% endif %}type="radio" id="{{ subfield.id }}" name="work" value="{{ subfield.id[-1] }}">
+              {{ subfield.label }}
+          </div>
+        {% endfor %}
+      </div> 
+      <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
+    </form>
 
-  {% if id %}
-  <div class="mt-5 mb-4 fs-4 fw-semibold">Delete Growth</div>
-  <a class="btn btn-outline-secondary text-danger" href="{{ url_for('growth.delete', id=id) }}">Delete</a>
-  {% endif %}
+    {% if id %}
+    <div class="mt-5 mb-4 fs-4 fw-semibold">Delete Growth</div>
+    <a class="btn btn-outline-secondary text-danger" href="{{ url_for('growth.delete', id=id) }}">Delete</a>
+    {% endif %}
+  </div>
 </div>
-
 
 {% endblock %}

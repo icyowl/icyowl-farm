@@ -1,15 +1,16 @@
 {% extends "base.html" %}
-{% from "macros/content_title.html" import render_title %}
+{% from "macros/subtitle.html" import render_subtitle %}
 
 {% block content %}
 
-{% set s = "Update Record" if id else "Add Record to " + variety + " " + growth %}
-{{ render_title(s) }}
+<div class="w-75">
+  {% set s = "Update Record" if id else "Add Record to " + variety + " " + growth %}
+  {{ render_subtitle(s) }}
 
   <div class="pt-2 ps-3">
     <form enctype="multipart/form-data" method="POST"> 
       <div class="mb-3">
-       {{ form.date.label }} {{ form.date(value=date, type="datetime-local") }}
+      {{ form.date.label }} {{ form.date(value=date, type="datetime-local") }}
       </div>
       <div class="mb-3">
         {{ form.title.label }} {{ form.title(size=20, value=title) }}
@@ -31,10 +32,12 @@
 
     </form>
 
-  {% if date %}
-  <div class="mt-5 mb-4 fs-5 fw-semibold">Delete Record</div>
-  <a class="btn btn-outline-secondary text-danger" href="{{ url_for('records.delete', id=id) }}">Delete</a>
+    {% if date %}
+    <div class="mt-5 mb-4 fs-5 fw-semibold">Delete Record</div>
+    <a class="btn btn-outline-secondary text-danger" href="{{ url_for('records.delete', id=id) }}">Delete</a>
+    {% endif %}
+    
+  </div>
 </div>
-  {% endif %}
 
 {% endblock %}

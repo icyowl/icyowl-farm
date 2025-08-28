@@ -1,18 +1,19 @@
 {% extends "base.html" %}
+{% from "macros/subtitle.html" import render_subtitle %}
+
 {% block content %}
-<div class="p-4">
-  <div class="fs-5 fw-semibold">Document - {{ variety }}</div>
-  <div class="mt-4">
-    <form method="POST"> 
-      <div class="mb-3">
-        {% set f = form.document.process_data(document) %}
-        {{ form.document(rows=20, cols=80) }}
-      </div>
-      <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
-    </form>
-  </div>
 
+{% set s = "Document - " + variety %}
+{{ render_subtitle(s) }}
+
+<div class="mt-2 ms-3">
+  <form method="POST"> 
+    <div class="mb-4">
+      {% set f = form.document.process_data(document) %}
+      {{ form.document(rows=20, cols=80) }}
+    </div>
+    <input class="btn btn-outline-secondary text-primary" type="submit" value="submit">
+  </form>
 </div>
-
 
 {% endblock %}

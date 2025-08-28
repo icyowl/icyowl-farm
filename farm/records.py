@@ -19,7 +19,7 @@ bp = Blueprint('records', __name__, url_prefix='/records')
 class RecordsForm(FlaskForm):
     date = DateTimeLocalField('Date')
     title = StringField('Title')
-    description = StringField('Desc')
+    description = StringField('Note')
 
 
 def encode_and_resize(file = None) -> str:

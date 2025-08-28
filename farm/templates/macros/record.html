@@ -9,12 +9,12 @@
       </div>
     </div>
     <div class="mb-2"><span>Title: </span><span>{{ record.title }}</span></div>
-    <div class="mb-3" style="width:225px"><span>note: </span><span>{{ record.description }}</span></div>
+    <div class="mb-3" style="width:225px"><span>Note: </span><span>{{ record.description }}</span></div>
     <div>
     {% if record.image %}
       <img src="data:image/png;base64,{{ record.image }}" alt="Image", width="225"/>
     {% else %}
-      <div  class="pt-5 text-secondary text-center border" style="width:350px;height:263px">No Image</div>
+      <div  class="pt-5 text-secondary text-center border" style="width:225px;height:169px">No Image</div>
     {% endif %}
     </div>
   </div>
