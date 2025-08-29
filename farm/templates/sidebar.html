@@ -34,7 +34,7 @@
 
       {% for item in items %}
         <li>
-          <div class="d-flex align-items-center">
+          <div class="mt-1 d-flex align-items-center">
             <a href="{{ url_for('species.update', id=item['_id']) }}" class="me-2">
               {{ item['species'] }}
             </a>
@@ -47,7 +47,7 @@
 
               {% for variety in item['children'] %}
                 <li>
-                  <div class="d-flex align-items-center">
+                  <div class="mt-1 d-flex align-items-center">
                     <a href="{{ url_for('variety.update', id=variety['_id']) }}" class="me-2">
                       {{ variety['variety'] }}
                     </a>
