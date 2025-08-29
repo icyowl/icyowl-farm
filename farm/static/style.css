@@ -12,9 +12,9 @@
   --danger: #ea1d00;
 }
 
-.bg-success-subtle {
+/* .bg-success-subtle {
   background: var(--light) !important;
-}
+} */
 
 .text-primary {
   color: var(--primary) !important;

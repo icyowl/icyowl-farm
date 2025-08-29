@@ -8,17 +8,17 @@ bp = Blueprint('sidebar', __name__, url_prefix=None)
 @bp.route('/crop')
 def crop():
     session['field'] = 0
-    return redirect(url_for('fields.docs', idx=0))
+    return redirect(url_for('fields.documents', idx=0))
 
 @bp.route('/vegetable')
 def vegetable():
     session['field'] = 1
-    return redirect(url_for('fields.docs', idx=1))
+    return redirect(url_for('fields.documents', idx=1))
 
 @bp.route('/other')
 def other():
     session['field'] = 2
-    return redirect(url_for('fields.docs', idx=2))
+    return redirect(url_for('fields.documents', idx=2))
 
 @bp.app_context_processor
 def inject_page():
