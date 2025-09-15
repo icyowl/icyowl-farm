@@ -39,7 +39,7 @@ def create():
     return render_template('forms/species.html', form=form)
 
 
-@bp.route('/update/<string:id>', methods=('GET', 'POST'))
+@bp.route('/update/<id>', methods=('GET', 'POST'))
 @login_required
 def update(id):
     form = SpeciesForm()
@@ -55,7 +55,7 @@ def update(id):
         found['species'] = form.species.data
         found['sort_no'] = form.sort_no.data
         dao.update_species(id, found)
-        return redirect(url_for('fields.docs', idx=idx))
+        return redirect(url_for('fields.documents', idx=idx))
 
     return render_template('forms/species.html', 
                                 form=form,

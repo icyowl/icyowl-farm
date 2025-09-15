@@ -8,15 +8,15 @@
       {% set s = " ".join([fields[idx | int], "-", "documents"]) %}
       {{ render_subtitle(s) }}
     </div>
-    <div class="mt-2 ms-3">
+    <div class="mt-2 ms-2">
       {% for sort_no, id, variety, excerpt in docs %}
       <div class="mb-4">
-        <div class="ps-1 mb-2">
+        <div class="ps-2 mb-2">
           <a class="fw-bold" href="{{ url_for('document.read', parent_id=id, variety=variety) }}" style="text-decoration: underline;">
             {{ variety }}
           </a>
         </div>
-        <div class="px-1 py-2 border rounded-1">
+        <div class="p-2 border rounded-1">
           {{ excerpt }}
         </div>
       </div>

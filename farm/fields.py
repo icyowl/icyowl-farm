@@ -27,9 +27,9 @@ def documents(idx):
             v_id = v['_id']
             v_no = v['sort_no']
             sort_no = s_no * 100 + v_no
-            doc = mongo.db.document.find_one({'parent': str(v_id)})
             variety_id = str(v_id)
-            variety = doc['variety']
+            variety = v['variety']
+            doc = mongo.db.document.find_one({'parent': str(v_id)})
             text = doc['document']
             # print(text.split('\r\n'))
             excerpt = text.split('\r\n')[0]

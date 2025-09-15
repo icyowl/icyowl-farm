@@ -70,7 +70,7 @@ def update(id):
         found['sort_no'] = form.sort_no.data
         dao.update_variety(id, found)
         idx = dao.get_field_index(id) 
-        return redirect(url_for('fields.docs', idx=idx))
+        return redirect(url_for('fields.documents', idx=idx))
     return render_template('forms/variety.html', 
                                         form=form,
                                         id=id,

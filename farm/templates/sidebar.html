@@ -7,10 +7,10 @@
       Home
     </a>
     {# <div class="collapse show" id="home-collapse"> #}
-      <ul class="list-unstyled ps-2 small" >
-        {# <li><a href="/" >Calendar</a></li> #}
-        <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
-        <li><a href="{{ url_for('species.create') }}">New ..</a></li>
+      <ul class="list-unstyled ps-2 mt-2 small" >
+        <li><a href="#" >Calendar</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Sign out</a></li>
+        <li><a href="{{ url_for('species.create') }}">New Species</a></li>
       </ul>
     {# </div> #}
   </li>
@@ -19,7 +19,7 @@
 <ul class="list-unstyled pt-2 ps-3 mb-2">
   <li>
     <div class="d-flex align-items-center">
-      <div class="me-1">Field :</div>
+      <div class="me-1">Field -</div>
       <a class="me-1 small {% if session['field'] == 0 %} text-primary {% endif %}" 
         href="{{ url_for('sidebar.crop') }}">Crop
       </a>
