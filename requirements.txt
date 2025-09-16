@@ -1,8 +1,8 @@
 annotated-types==0.7.0
 blinker==1.9.0
+certifi==2025.8.3
 click==8.2.1
 dnspython==2.8.0
--e git+https://github.com/icyowl/icyowl-farm.git@61d7b0ed5106274c063d79d9b792e4ff9f4f6b69#egg=farm
 Flask==3.1.2
 Flask-PyMongo==3.0.1
 Flask-WTF==1.2.2
