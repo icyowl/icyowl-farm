@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, redirect, url_for, session
 from farm.auth import login_required
 

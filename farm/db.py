@@ -1,11 +1,14 @@
+import certifi
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 from farm.models import Species, Variety, Growth, Records, Document
 
+
 mongo = PyMongo()
 
 def init_db(app):  # app.config["MONGO_URI"] は app.py 側で設定
-    mongo.init_app(app)
+    mongo.init_app(app, tls=True, tlsCAFile=certifi.where())
+    # print("Mongo client:", mongo.cx)
 
 
 class Dao:

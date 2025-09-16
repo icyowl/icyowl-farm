@@ -1,22 +1,21 @@
 annotated-types==0.7.0
 blinker==1.9.0
 click==8.2.1
-colorama==0.4.6
-dnspython==2.7.0
+dnspython==2.8.0
+-e git+https://github.com/icyowl/icyowl-farm.git@61d7b0ed5106274c063d79d9b792e4ff9f4f6b69#egg=farm
 Flask==3.1.2
 Flask-PyMongo==3.0.1
 Flask-WTF==1.2.2
 gunicorn==23.0.0
 itsdangerous==2.2.0
 Jinja2==3.1.6
-Markdown==3.8.2
+Markdown==3.9
 MarkupSafe==3.0.2
 packaging==25.0
 pillow==11.3.0
-pydantic==2.11.7
+pydantic==2.11.9
 pydantic_core==2.33.2
-pymongo==4.14.1
-setuptools==80.9.0
+pymongo==4.15.0
 typing-inspection==0.4.1
 typing_extensions==4.15.0
 Werkzeug==3.1.3

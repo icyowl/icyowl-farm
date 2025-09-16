@@ -6,8 +6,8 @@ build-backend = 'setuptools.build_meta'
 name = 'farm'
 readme = 'README.md'
 license = 'MIT'
-version = '0.1'
-description = 'The farm management app.'
+version = '2025.0.1'
+description = 'The farm management app'
 dependencies = [
   'flask',
   'gunicorn',
@@ -15,7 +15,8 @@ dependencies = [
   'Flask-PyMongo',
   'pydantic', 
   'Pillow',
-  'markdown'
+  'markdown',
+  'certifi'
 ]
 
 [project.optional-dependencies]
