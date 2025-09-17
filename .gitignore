@@ -4,8 +4,6 @@ __pycache__/
 
 instance/
 
-README.md
-
 .pytest_cache/
 .coverage
 htmlcov/
